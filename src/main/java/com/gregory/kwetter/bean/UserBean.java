@@ -16,4 +16,6 @@ public class UserBean {
     public void addUser(User user) {
         userService.addUser(user);
     }
+
+    public void getUser(int userid) { userService.getUser(userid); }
 }

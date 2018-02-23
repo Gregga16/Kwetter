@@ -15,4 +15,6 @@ public class UserService {
     public void addUser(User user) {
         userDAO.createUser(user);
     }
+
+    public void getUser(int userid) { userDAO.getUser(userid); }
 }

@@ -15,4 +15,6 @@ public class UserDAO {
     public void createUser(User user) {
         entityManager.persist(user);
     }
+
+    public void getUser(int userid) { entityManager.find(User.class, userid); }
 }
