@@ -1,18 +1,21 @@
 package com.gregory.kwetter.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@NamedQuery(name= "user.All", query = "SELECT u FROM User u")
+@NamedQueries({
+        @NamedQuery(name = "User.findAllUsers", query = "SELECT user FROM User user"),
+        @NamedQuery(name = "User.findById", query = "SELECT user FROM User user WHERE user.id =:id"),
+        @NamedQuery(name = "User.findByName", query = "SELECT user FROM User user WHERE user.firstName =:name")
+})
 public class User implements Serializable{
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     private String picture;
     private String firstName;
@@ -22,6 +25,9 @@ public class User implements Serializable{
     private String bio;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public List<Kweet> kweets = new ArrayList<>();
 
     public User() {}
 

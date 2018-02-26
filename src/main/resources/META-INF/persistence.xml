@@ -3,18 +3,8 @@
 
     <persistence-unit name="Kwetter" transaction-type="JTA">
         <jta-data-source>kwetter</jta-data-source>
-        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-
-            <!--<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Kwetter"/>-->
-            <!--<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>-->
-            <!--<property name="hibernate.connection.username" value="root"/>-->
-            <!--<property name="hibernate.connection.password" value="secret"/>-->
-            <!--<property name="hibernate.archive.autodetection" value="class"/>-->
-            <!--<property name="hibernate.show_sql" value="true"/>-->
-            <!--<property name="hibernate.format_sql" value="true"/>-->
-            <!--<property name="hbm2ddl.auto" value="update"/>-->
         </properties>
     </persistence-unit>
 </persistence>
