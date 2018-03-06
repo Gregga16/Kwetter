@@ -4,6 +4,7 @@ import com.gregory.kwetter.bean.KweetBean;
 import com.gregory.kwetter.bean.UserBean;
 import com.gregory.kwetter.model.Kweet;
 import com.gregory.kwetter.model.User;
+import com.gregory.kwetter.service.KweetService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -18,7 +19,7 @@ import java.util.List;
 public class KweetResource {
 
     @Inject
-    private KweetBean kweetBean;
+    private KweetService kweetService;
 
     @GET
     @Path("test")
@@ -30,14 +31,14 @@ public class KweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("allKweets")
     public List<Kweet> findAllKweets() {
-        return kweetBean.findAllKweets();
+        return kweetService.findAllKweets();
     }
 
     @POST
     @Path("addKweet")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addKweet(Kweet kweet) {
-        kweetBean.addKweet(kweet);
+        kweetService.addKweet(kweet);
     }
 
 }

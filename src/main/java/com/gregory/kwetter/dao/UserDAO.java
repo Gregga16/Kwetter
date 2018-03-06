@@ -1,5 +1,6 @@
 package com.gregory.kwetter.dao;
 
+import com.gregory.kwetter.model.Kweet;
 import com.gregory.kwetter.model.User;
 
 import javax.ejb.Stateless;
@@ -8,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Set;
 
 @Stateless
 public class UserDAO {
@@ -19,7 +21,7 @@ public class UserDAO {
         entityManager.persist(user);
     }
 
-    public void getUser(int userid) { entityManager.find(User.class, userid); }
+    public void editUser(User user) { entityManager.merge(user); }
 
     public List<User> findAllUsers() {
         Query q = entityManager.createNamedQuery("User.findAllUsers");
@@ -40,5 +42,29 @@ public class UserDAO {
         Query q = entityManager.createNamedQuery("User.findById");
         q.setParameter("id", id);
         return (User) q.getSingleResult();
+    }
+
+    public List<Kweet> findAllKweets(Long id) {
+        Query q = entityManager.createNamedQuery("User.findAllKweets");
+        q.setParameter("id", id);
+        return q.getResultList();
+    }
+
+    public void addFollow(User user, User follower) {
+        user = entityManager.find(User.class, user.getId());
+        follower = entityManager.find(User.class, follower.getId());
+
+        user.follow(follower);
+//        entityManager.merge(user);
+    }
+
+    public Set<User> getFollowers(Long id) {
+        User user = findById(id);
+        return user.getFollowers();
+    }
+
+    public Set<User> getFollowing(Long id) {
+        User user = findById(id);
+        return user.getFollowing();
     }
 }

@@ -22,30 +22,25 @@ public class Kweet implements Serializable{
 
     public Kweet() {}
 
-    public Kweet(String message, Date eventDate) {
+    public Kweet(String message, User user) {
         this.message = message;
-        this.eventDate = eventDate;
+        this.eventDate = new Date();
+        this.user = user;
     }
 
-    public Kweet(String message, Date eventDate, User user) {
-        this.message = message;
-        this.eventDate = eventDate;
-        this.user = user;
+    public int getId() {
+        return Id;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public Date getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public User getUser() {
+        return user;
     }
 }
