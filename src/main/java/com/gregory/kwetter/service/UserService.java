@@ -15,11 +15,6 @@ public class UserService {
     @Inject
     UserDAO userDAO;
 
-//    @Inject
-//    public UserService(UserDAO userDao) {
-//        this.userDAO = userDao;
-//    }
-
     public void createUser(User user) {
         userDAO.createUser(user);
     }

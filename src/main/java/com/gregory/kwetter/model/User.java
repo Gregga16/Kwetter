@@ -20,6 +20,7 @@ public class User implements Serializable{
 
     private String picture;
     @Column(unique = true)
+    private String userName;
     private String firstName;
     private String lastName;
     private String location;
@@ -48,6 +49,18 @@ public class User implements Serializable{
         this.password = password;
     }
 
+    public User(String picture, String userName, String firstName, String lastName, String location, String web, String bio, String email, String password) {
+        this.picture = picture;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.location = location;
+        this.web = web;
+        this.bio = bio;
+        this.email = email;
+        this.password = password;
+    }
+
     public Long getId() {
         return id;
     }
@@ -55,6 +68,8 @@ public class User implements Serializable{
     public String getPicture() {
         return picture;
     }
+
+    public String getUserName() { return userName; }
 
     public String getFirstName() {
         return firstName;
@@ -85,7 +100,7 @@ public class User implements Serializable{
     }
 
     public Set<Kweet> getKweets() {
-        return kweets;
+        return Collections.unmodifiableSet(kweets);
     }
 
     public Set<User> getFollowing() {
@@ -109,6 +124,8 @@ public class User implements Serializable{
     public void setPicture(String picture) {
         this.picture = picture;
     }
+
+    public void setUserName(String userName) { this.userName = userName; }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -150,12 +167,10 @@ public class User implements Serializable{
         this.followers = followers;
     }
 
-    public Kweet addKweet(String message) {
-        Kweet kweet = new Kweet(message, this);
-        this.kweets.add(kweet);
-        return kweet;
+    public void addKweet(String message) {
+        this.kweets.add(new Kweet(message, this));
     }
-//
+
     public boolean follow(User user) {
         if (user == null || user == this) {
             return false;
@@ -166,8 +181,15 @@ public class User implements Serializable{
         return following.add(user);
     }
 
+    public boolean unfollow(User user) {
+        user.removeFollower(this);
+        return following.remove(user);
+    }
+
     private void addFollower(User follower) {
         this.followers.add(follower);
     }
+
+    private boolean removeFollower(User user) { return followers.remove(user); }
 
 }

@@ -55,7 +55,6 @@ public class UserDAO {
         follower = entityManager.find(User.class, follower.getId());
 
         user.follow(follower);
-//        entityManager.merge(user);
     }
 
     public Set<User> getFollowers(Long id) {

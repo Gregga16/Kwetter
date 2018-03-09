@@ -5,21 +5,26 @@ import com.gregory.kwetter.bean.UserBean;
 import com.gregory.kwetter.model.Kweet;
 import com.gregory.kwetter.model.User;
 import com.gregory.kwetter.service.KweetService;
+import com.gregory.kwetter.service.UserService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlElement;
 import java.util.Date;
 import java.util.List;
 
 @Stateless
-@Path("tweet")
+@Path("kweet")
 @Produces(MediaType.APPLICATION_JSON)
 public class KweetResource {
 
     @Inject
     private KweetService kweetService;
+
+    @Inject
+    private UserService userService;
 
     @GET
     @Path("test")
@@ -35,10 +40,10 @@ public class KweetResource {
     }
 
     @POST
-    @Path("addKweet")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void addKweet(Kweet kweet) {
-        kweetService.addKweet(kweet);
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void addKweet(@FormParam("message") String message, @FormParam("userId") Long id) {
+        User user = userService.findById(id);
+        kweetService.addKweet(message, id);
     }
 
 }

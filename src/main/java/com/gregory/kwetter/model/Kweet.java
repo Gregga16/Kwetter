@@ -43,4 +43,20 @@ public class Kweet implements Serializable{
     public User getUser() {
         return user;
     }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

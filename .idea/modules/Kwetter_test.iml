@@ -17,6 +17,7 @@
     <orderEntry type="library" name="Gradle: javax:javaee-api:8.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.ws.rs:javax.ws.rs-api:2.1" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="Gradle: org.mockito:mockito-all:1.10.19" level="project" />
     <orderEntry type="library" name="Gradle: javax.el:javax.el-api:3.0.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.interceptor:javax.interceptor-api:1.2" level="project" />
     <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />

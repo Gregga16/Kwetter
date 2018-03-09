@@ -13,6 +13,8 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+
     compile group: 'javax.enterprise', name: 'cdi-api', version: '1.2'
     compile group: 'javax.ejb', name: 'javax.ejb-api', version: '3.2'
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.3.0.CR1'
