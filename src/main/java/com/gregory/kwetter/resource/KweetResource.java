@@ -43,7 +43,7 @@ public class KweetResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void addKweet(@FormParam("message") String message, @FormParam("userId") Long id) {
         User user = userService.findById(id);
-        kweetService.addKweet(message, id);
+        kweetService.addKweet(new Kweet(message, user));
     }
 
 }

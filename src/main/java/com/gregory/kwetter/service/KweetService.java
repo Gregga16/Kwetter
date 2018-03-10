@@ -18,9 +18,9 @@ public class KweetService {
     @Inject
     UserDAO userDAO;
 
-    public void addKweet(String message, Long id) {
-        User user = userDAO.findById(id);
-        kweetDAO.createKweet(new Kweet(message, user));
+    public void addKweet(Kweet kweet) {
+//        User user = userDAO.findById(id);
+        kweetDAO.createKweet(kweet);
     }
 
     public List<Kweet> findAllKweets() {
