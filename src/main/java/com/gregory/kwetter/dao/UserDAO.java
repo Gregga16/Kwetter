@@ -28,11 +28,11 @@ public class UserDAO {
         return q.getResultList();
     }
 
-    public User findByName(String userName) {
+    public List<User> findByName(String userName) {
         Query q = entityManager.createNamedQuery("User.findByName");
         q.setParameter("name", userName);
         try {
-            return (User) q.getSingleResult();
+            return q.getResultList();
         } catch (NoResultException ex) {
             return null;
         }

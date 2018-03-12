@@ -23,7 +23,7 @@ public class UserService {
         return userDAO.findAllUsers();
     }
 
-    public User findByName(String userName) {
+    public List<User> findByName(String userName) {
         return userDAO.findByName(userName);
     }
 

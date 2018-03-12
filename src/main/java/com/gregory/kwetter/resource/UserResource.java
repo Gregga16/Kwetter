@@ -37,7 +37,7 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("username/{userName}")
-    public User findByName(@PathParam("userName") String userName) {
+    public List<User> findByName(@PathParam("userName") String userName) {
         return userService.findByName(userName);
     }
 

@@ -167,8 +167,10 @@ public class User implements Serializable{
         this.followers = followers;
     }
 
-    public void addKweet(String message) {
-        this.kweets.add(new Kweet(message, this));
+    public Kweet addKweet(String message) {
+        Kweet kweet = new Kweet(message, this);
+        this.kweets.add(kweet);
+        return kweet;
     }
 
     public boolean follow(User user) {

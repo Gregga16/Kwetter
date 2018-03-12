@@ -1,7 +1,6 @@
 package com.gregory.kwetter.resource;
 
-import com.gregory.kwetter.bean.KweetBean;
-import com.gregory.kwetter.bean.UserBean;
+import com.gregory.kwetter.interceptor.KweetLoggedInterceptor;
 import com.gregory.kwetter.model.Kweet;
 import com.gregory.kwetter.model.User;
 import com.gregory.kwetter.service.KweetService;
@@ -9,11 +8,11 @@ import com.gregory.kwetter.service.UserService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.annotation.XmlElement;
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Stateless
 @Path("kweet")
@@ -45,5 +44,20 @@ public class KweetResource {
         User user = userService.findById(id);
         kweetService.addKweet(new Kweet(message, user));
     }
+
+    @GET
+    @Path("{kweetId}/mentions")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Set<User> getMentions(@PathParam("kweetId") Long id) {
+        return kweetService.getMentions(id);
+    }
+
+    @GET
+    @Path("{kweetId}/likes")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Set<User> getLikes(@PathParam("kweetId") Long id) {
+        return kweetService.getLikes(id);
+    }
+
 
 }

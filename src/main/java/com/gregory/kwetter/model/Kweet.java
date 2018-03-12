@@ -1,16 +1,22 @@
 package com.gregory.kwetter.model;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@NamedQuery(name = "Kweet.findAllKweets", query = "SELECT kweet FROM Kweet kweet")
+@NamedQueries({
+        @NamedQuery(name = "Kweet.findAllKweets", query = "SELECT kweet FROM Kweet kweet"),
+        @NamedQuery(name = "Kweet.findById", query = "SELECT kweet FROM Kweet kweet WHERE kweet.id = :id")
+})
 public class Kweet implements Serializable{
 
     @Id
     @GeneratedValue
-    private int Id;
+    private Long id;
 
     private String message;
     @Temporal(TemporalType.TIMESTAMP)
@@ -20,6 +26,16 @@ public class Kweet implements Serializable{
     @JoinColumn(name = "User_id")
     private User user;
 
+    @JsonbTransient
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "tweet_likes")
+    private Set<User> likes = new HashSet<>();
+
+    @JsonbTransient
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "tweet_mentions")
+    private Set<User> mentions = new HashSet<>();
+
     public Kweet() {}
 
     public Kweet(String message, User user) {
@@ -28,8 +44,8 @@ public class Kweet implements Serializable{
         this.user = user;
     }
 
-    public int getId() {
-        return Id;
+    public Long getId() {
+        return id;
     }
 
     public String getMessage() {
@@ -44,8 +60,16 @@ public class Kweet implements Serializable{
         return user;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public Set<User> getLikes() {
+        return likes;
+    }
+
+    public Set<User> getMentions() {
+        return mentions;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setMessage(String message) {
@@ -58,5 +82,16 @@ public class Kweet implements Serializable{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void addMention(User user) {
+        this.mentions.add(user);
+    }
+
+    public boolean like(User user) {
+        if (user == null) {
+            return false;
+        }
+        return likes.add(user);
     }
 }
