@@ -27,7 +27,7 @@ public class KweetServiceTest {
         Kweet kweet = new Kweet("dit is test kweet", user);
         kweetService.addKweet(kweet);
 
-        Mockito.verify(kweetDAO, Mockito.times(1)).createKweet(kweet);
+        Mockito.verify(kweetDAO, Mockito.times(1)).addKweet(kweet);
     }
 
     @Test
