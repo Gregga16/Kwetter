@@ -66,4 +66,9 @@ public class UserDAO {
         User user = findById(id);
         return user.getFollowing();
     }
+
+    public List<Kweet> getTimeLine(Long id) {
+        Query q = entityManager.createNativeQuery("SELECT k.* FROM Kweet k, USER_USER u WHERE (u.`following_ID` = k.`User_id` AND u.`followers_ID` = " + id + ") OR k.`User_id` = " + id + " GROUP BY k.`ID` ORDER BY k.`EVENTDATE` DESC LIMIT 10");
+        return q.getResultList();
+    }
 }

@@ -76,5 +76,12 @@ public class UserResource {
         return userService.getFollowing(id);
     }
 
+    @GET
+    @Path("{userId}/timeline")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Kweet> getTimeLine(@PathParam("userId") Long id) {
+        return userService.getTimeLine(id);
+    }
+
 
 }

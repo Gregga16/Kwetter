@@ -37,6 +37,9 @@ public class Init {
         user1kweet2.like(user2);
         Kweet user2kweet1 = user2.addKweet("User 2 makes a tweet");
         Kweet user3kweet1 = user3.addKweet("User 3 makes a tweet");
+        Kweet user4kweet1 = user4.addKweet("User 4 makes a tweet");
+        Kweet user5kweet1 = user5.addKweet("User 5 makes a tweet");
+        Kweet user5kweet2 = user5.addKweet("User 5 makes a another tweet");
 
         user1.follow(user2);
         user1.follow(user3);

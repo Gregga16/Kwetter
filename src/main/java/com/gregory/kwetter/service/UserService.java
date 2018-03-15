@@ -46,4 +46,6 @@ public class UserService {
     public Set<User> getFollowing(Long id) {
         return userDAO.getFollowing(id);
     }
+
+    public List<Kweet> getTimeLine(Long id) { return userDAO.getTimeLine(id); }
 }
