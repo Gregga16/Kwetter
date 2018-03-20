@@ -19,4 +19,23 @@ dependencies {
     compile group: 'javax.ejb', name: 'javax.ejb-api', version: '3.2'
     compile group: 'javax', name: 'javaee-api', version: '8.0'
     compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'
+
+    compile group: 'com.sun.faces', name: 'jsf-api', version: '2.2.16'
+    compile group: 'com.sun.faces', name: 'jsf-impl', version: '2.2.16'
+
+    compile group: 'org.primefaces', name: 'primefaces', version: '5.3'
+    compile group: 'org.primefaces.extensions', name: 'all-themes', version: '1.0.8', ext: 'pom'
+    compile group: 'net.bootsfaces', name: 'bootsfaces', version: '1.0.1'
+
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+    compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
+    compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.2'
+
+    compile group: 'org.webjars', name: 'bootstrap', version: '3.3.6'
+    compile group: 'org.webjars', name: 'font-awesome', version: '4.5.0'
+    compile group: 'org.webjars', name: 'jquery', version: '3.2.0'
+
+
+
 }

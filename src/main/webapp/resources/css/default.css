@@ -1,3 +1,9 @@
 body {
     background-color: #0096bc;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.text-muted {
+    color: black;
 }

@@ -25,11 +25,11 @@ public class KweetService {
     UserDAO userDAO;
 
     @Interceptors(KweetLoggedInterceptor.class)
-    public void addKweet(Kweet kweet) {
+    public Kweet addKweet(Kweet kweet) {
         for (User u : findMentions(kweet.getMessage())) {
             kweet.addMention(u);
         }
-        kweetDAO.addKweet(kweet);
+        return kweetDAO.addKweet(kweet.getMessage(), kweet.getUser());
     }
 
     public List<Kweet> findAllKweets() {
@@ -50,12 +50,16 @@ public class KweetService {
         Matcher m = Pattern.compile("(?:\\@)([A-Za-z0-9_]+)").matcher(prefix);
 
         while (m.find()) {
-            List<User> users = userDAO.findByName(m.group(1));
+            List<User> users = (List<User>) userDAO.findByName(m.group(1));
             if (!users.isEmpty()) {
                 System.out.print(users.get(0).getFirstName());
                 mentions.add(users.get(0));
             }
         }
         return mentions;
+    }
+
+    public List<Kweet> findKweetOnText(String text) {
+        return kweetDAO.findKweetOnText(text);
     }
 }

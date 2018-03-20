@@ -1,0 +1,35 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
+
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="../index.xhtml">Home</a></li>
+                <li role="presentation" class="active" data-rel='popup'><a onclick="formLogin.submit();"
+                                                                           href="">Sign In</a></li>
+                <li role="presentation"><p:commandButton value="Add Invoice" type="button" onclick="PF('dlg').show();"/>
+
+                </li>
+
+            </ul>
+        </nav>
+
+        <h3 class="text-muted">Kwetter</h3>
+
+        <h:panelGroup id="loginDialog" style="display:none">
+            <h:form name="formLogin" id="formLogin" prependId="false" onsubmit="document.getElementById('formLogin').action='j_security_check';">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="j_username" value="Username: "/>
+                    <h:inputText id="j_username" required="true"/>
+
+                    <h:outputLabel for="j_password" value="Password: "/>
+                    <h:inputText id="j_password" required="true"/>
+                </h:panelGrid>
+                <h:commandButton id="loginButton" value="Login" type="submit"/>
+            </h:form>
+        </h:panelGroup>
+    </div>
+</ui:composition>

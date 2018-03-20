@@ -14,8 +14,12 @@ import java.util.Set;
 @Stateless
 public class UserDAO {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "Kwetter")
     private EntityManager entityManager;
+
+    public void setEntityManager(EntityManager em) {
+        this.entityManager = em;
+    }
 
     public void createUser(User user) {
         entityManager.persist(user);
@@ -28,11 +32,12 @@ public class UserDAO {
         return q.getResultList();
     }
 
-    public List<User> findByName(String userName) {
+    public User findByName(String userName) {
         Query q = entityManager.createNamedQuery("User.findByName");
         q.setParameter("name", userName);
+
         try {
-            return q.getResultList();
+            return (User) q.getSingleResult();
         } catch (NoResultException ex) {
             return null;
         }
@@ -68,7 +73,10 @@ public class UserDAO {
     }
 
     public List<Kweet> getTimeLine(Long id) {
-        Query q = entityManager.createNativeQuery("SELECT k.* FROM Kweet k, USER_USER u WHERE (u.`following_ID` = k.`User_id` AND u.`followers_ID` = " + id + ") OR k.`User_id` = " + id + " GROUP BY k.`ID` ORDER BY k.`EVENTDATE` DESC LIMIT 10");
+        String sql = "SELECT k.*  FROM Kweet k, USER_USER u WHERE (u.`following_ID` = k.`User_id` AND u.`followers_ID` = " + id + ") OR k.`User_id` = " + id + " GROUP BY k.`ID` ORDER BY k.`EVENTDATE` DESC LIMIT 10";
+
+        Query q = entityManager.createNativeQuery(sql, Kweet.class);
+
         return q.getResultList();
     }
 }

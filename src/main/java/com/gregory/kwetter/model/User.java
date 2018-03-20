@@ -1,5 +1,8 @@
 package com.gregory.kwetter.model;
 
+import com.gregory.kwetter.interceptor.KweetLoggedInterceptor;
+
+import javax.interceptor.Interceptors;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +12,7 @@ import java.util.*;
 @NamedQueries({
         @NamedQuery(name = "User.findAllUsers", query = "SELECT user FROM User user"),
         @NamedQuery(name = "User.findById", query = "SELECT user FROM User user WHERE user.id =:id"),
-        @NamedQuery(name = "User.findByName", query = "SELECT user FROM User user WHERE user.firstName =:name"),
+        @NamedQuery(name = "User.findByName", query = "SELECT user FROM User user WHERE user.userName =:name"),
         @NamedQuery(name = "User.findAllKweets", query = "select kweet from User user join user.kweets kweet where user.id =:id")
 })
 public class User implements Serializable{
@@ -35,6 +38,11 @@ public class User implements Serializable{
     private Set<Kweet> kweets = new HashSet<>();
 
     @JsonbTransient
+    @ManyToMany
+    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleID"))
+    private Set<Role> roles = new HashSet<>();
+
+    @JsonbTransient
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> following = new HashSet<>();
 
@@ -44,8 +52,8 @@ public class User implements Serializable{
 
     public User() {}
 
-    public User(String email, String password) {
-        this.email = email;
+    public User(String userName, String password) {
+        this.userName = userName;
         this.password = password;
     }
 
@@ -101,6 +109,10 @@ public class User implements Serializable{
 
     public Set<Kweet> getKweets() {
         return Collections.unmodifiableSet(kweets);
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     public Set<User> getFollowing() {
@@ -159,6 +171,8 @@ public class User implements Serializable{
         this.kweets = kweets;
     }
 
+    public void setRoles(Set<Role> roles) { this.roles = roles; }
+
     public void setFollowing(Set<User> following) {
         this.following = following;
     }
@@ -167,8 +181,9 @@ public class User implements Serializable{
         this.followers = followers;
     }
 
-    public Kweet addKweet(String message) {
-        Kweet kweet = new Kweet(message, this);
+    @Interceptors(KweetLoggedInterceptor.class)
+    public Kweet addKweet(Kweet kweet) {
+//        Kweet kweet = new Kweet(message, this);
         this.kweets.add(kweet);
         return kweet;
     }
@@ -186,6 +201,10 @@ public class User implements Serializable{
     public boolean unfollow(User user) {
         user.removeFollower(this);
         return following.remove(user);
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
     private void addFollower(User follower) {

@@ -6,6 +6,7 @@ import com.gregory.kwetter.model.User;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -14,12 +15,19 @@ import java.util.Set;
 @Stateless
 public class KweetDAO {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "Kwetter")
     private EntityManager entityManager;
 
 
-    public void addKweet(Kweet kweet) {
-        entityManager.persist(kweet);
+    public Kweet addKweet(String message, User user) {
+        Kweet kweet = new Kweet(message, user);
+        try {
+            user.addKweet(kweet);
+            entityManager.merge(kweet);
+            return kweet;
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     public List<Kweet> findAllKweets() {
@@ -41,5 +49,15 @@ public class KweetDAO {
     public Set<User> getLikes(Long id) {
         Kweet kweet = findById(id);
         return kweet.getLikes();
+    }
+
+    public List<Kweet> findKweetOnText(String text) {
+        Query q = entityManager.createNamedQuery("Kweet.findKweetsOnText");
+        q.setParameter("searchText", "%" + text + "%" );
+        try {
+            return q.getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

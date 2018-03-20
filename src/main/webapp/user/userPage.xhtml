@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<h:head>
+    <title>User Page</title>
+</h:head>
+<h:body>
+    <div class="container">
+        <div class="header clearfix">
+            <h:form>
+                <nav>
+                    <ul class="nav nav-pills pull-right">
+                        <li role="presentation" class="active">
+                            <h:commandLink action="#{userBean.logout()}" class="subAnchor" value="Logout"/>
+                        </li>
+                        <li role="presentation"><a href="${pageContext.request.contextPath}/Kwetter/#{userBean.user.userName}">Profile Page</a></li>
+                    </ul>
+                </nav>
+            </h:form>
+            <h:form>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-primary dropdown-toggle button-dropdown"
+                            data-toggle="dropdown">
+                        language <span class="caret"/>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+
+                    </ul>
+                </div>
+            </h:form>
+
+            <div class="inner-addon right-addon">
+                <h:form>
+                    <i class="fa fa-search"/>
+                    <h:inputText id="searchKweet" type="text" class="form-control"
+                                 a:placeholder="searchKweet"
+                                 onkeypress="if (event.keyCode == 13) {event.target.blur();event.stopPropagation();return false;} else {return true;};">
+                        <f:ajax execute="searchKweet" listener="#{userBean.searchKweet}"
+                                prependId="true" render="tv">
+                        </f:ajax>
+                    </h:inputText>
+                </h:form>
+            </div>
+        </div>
+        <div class="jumbotron">
+            <h1>Welcome back</h1>
+            <p class="lead">createKweet</p>
+            <h:form>
+                <h:inputTextarea id="newKweet" style="margin-bottom: 10px; width: 520px; height: 120px;"
+                                 a:placeholder="placeholderKweetString"
+                                 value="#{userBean.kweetString}">
+                    <f:validateLength maximum="140" />
+                    <f:ajax execute="createKweet" listener="#{userBean.createKweet}"
+                            prependId="true" render="tv latestKweet">
+                    </f:ajax>
+                </h:inputTextarea>
+                <p>
+                    <h:commandButton id="createKweet" class="btn btn-lg btn-success" role="button"
+                                     value="CreateKweet"/>
+                </p>
+            </h:form>
+        </div>
+        <div class="row marketing">
+            <div class="col-lg-6">
+                <p:tabView id="tv" dynamic="true" cache="true">
+                    <!--<p:tab id="timeline" title="#{msg['timeline']}">-->
+                    <p:tab id="timeline" title="timeline">
+                        <h:form id="formKweet">
+                            <h:dataTable id="listKweet" prependId="true" var="kweet"
+                                         value="#{userBean.kweets}">
+                                <h:column>
+                                    <h:outputText value="#{kweet.message}"/>
+                                    <br/>
+                                    <b>
+                                        <h:outputText class="user" value="- #{kweet.user.userName.toUpperCase()} "/>
+                                        <h:outputText class="user" value=" Posted: "/>
+                                        <h:outputText class="user" value="#{kweet.eventDate}">
+                                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                        </h:outputText>
+                                    </b>
+                                    <hr/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </p:tab>
+                    <!--<p:tab title="#{msg['mentions']}">-->
+                    <p:tab title="mentions">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="Mention1"/>
+                            <hr/>
+                            <h:outputText value="Mention2"/>
+                            <hr/>
+                            <h:outputText value="Mention3"/>
+                            <hr/>
+                            <h:outputText value="Mention4"/>
+                            <hr/>
+                            <h:outputText value="Mention5"/>
+                            <hr/>
+                            <h:outputText value="Mention6"/>
+                            <hr/>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+            </div>
+        </div>
+    </div>
+
+</h:body>
+</html>

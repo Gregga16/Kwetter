@@ -10,7 +10,9 @@ import java.util.Set;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Kweet.findAllKweets", query = "SELECT kweet FROM Kweet kweet"),
-        @NamedQuery(name = "Kweet.findById", query = "SELECT kweet FROM Kweet kweet WHERE kweet.id = :id")
+        @NamedQuery(name = "Kweet.findById", query = "SELECT kweet FROM Kweet kweet WHERE kweet.id = :id"),
+        @NamedQuery(name = "Kweet.findKweetsOnText",
+                query = "select kweet from Kweet kweet WHERE lower(kweet.message) like :searchText")
 })
 public class Kweet implements Serializable{
 

@@ -45,9 +45,9 @@ public class UserTest {
         Set<Kweet> result = user.getKweets();
 
         assertEquals(expResult, result);
-
-        user.addKweet("test");
-        expResult.add(new Kweet("test", user));
+        Kweet kweet = new Kweet("test", user);
+        user.addKweet(kweet);
+        expResult.add(kweet);
 
         assertEquals(user.getKweets().size(), expResult.size());
 

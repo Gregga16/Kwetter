@@ -6,10 +6,12 @@ import com.gregory.kwetter.model.User;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.List;
 import java.util.Set;
 
 @Stateless
+@Named
 public class UserService {
 
     @Inject
@@ -23,7 +25,7 @@ public class UserService {
         return userDAO.findAllUsers();
     }
 
-    public List<User> findByName(String userName) {
+    public User findByName(String userName) {
         return userDAO.findByName(userName);
     }
 

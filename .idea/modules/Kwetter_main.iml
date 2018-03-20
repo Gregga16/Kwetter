@@ -25,6 +25,18 @@
     <orderEntry type="library" name="Gradle: javax.ejb:javax.ejb-api:3.2" level="project" />
     <orderEntry type="library" name="Gradle: javax:javaee-api:8.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.ws.rs:javax.ws.rs-api:2.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.faces:jsf-api:2.2.16" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.faces:jsf-impl:2.2.16" level="project" />
+    <orderEntry type="library" name="Gradle: org.primefaces:primefaces:5.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.primefaces.extensions:all-themes:pom:1.0.8" level="project" />
+    <orderEntry type="library" name="Gradle: net.bootsfaces:bootsfaces:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:jstl:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:4.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet.jsp:jsp-api:2.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.webjars:bootstrap:3.3.6" level="project" />
+    <orderEntry type="library" name="Gradle: org.webjars:font-awesome:4.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.webjars:jquery:3.2.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.el:javax.el-api:3.0.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.interceptor:javax.interceptor-api:1.2" level="project" />
     <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
