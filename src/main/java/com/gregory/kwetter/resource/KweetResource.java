@@ -20,7 +20,7 @@ import java.util.Set;
 
 @RequestScoped
 @DeclareRoles({"Admin", "Kweeter"})
-@Path("kweets")
+@Path("kweet")
 @Produces(MediaType.APPLICATION_JSON)
 public class KweetResource {
 

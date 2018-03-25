@@ -76,7 +76,8 @@ public class UserDAO {
         String sql = "SELECT k.*  FROM Kweet k, USER_USER u WHERE (u.`following_ID` = k.`User_id` AND u.`followers_ID` = " + id + ") OR k.`User_id` = " + id + " GROUP BY k.`ID` ORDER BY k.`EVENTDATE` DESC LIMIT 10";
 
         Query q = entityManager.createNativeQuery(sql, Kweet.class);
-
-        return q.getResultList();
+        List<Kweet> kweet = q.getResultList();
+        System.out.println(kweet.size());
+        return kweet;
     }
 }

@@ -24,6 +24,7 @@ public class Kweet implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date eventDate;
 
+    @JsonbTransient
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "User_id")
     private User user;
