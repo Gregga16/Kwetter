@@ -37,7 +37,7 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Kweet> kweets = new HashSet<>();
 
-    @JsonbTransient
+//    @JsonbTransient
     @ManyToMany
     @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleID"))
     private Set<Role> roles = new HashSet<>();
@@ -112,6 +112,9 @@ public class User implements Serializable{
     }
 
     public Set<Role> getRoles() {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
         return roles;
     }
 

@@ -24,18 +24,15 @@ public class Kweet implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date eventDate;
 
-    @JsonbTransient
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "User_id")
     private User user;
-
-    @JsonbTransient
-    @OneToMany(cascade = CascadeType.MERGE)
+    
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "tweet_likes")
     private Set<User> likes = new HashSet<>();
 
-    @JsonbTransient
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "tweet_mentions")
     private Set<User> mentions = new HashSet<>();
 
@@ -64,10 +61,16 @@ public class Kweet implements Serializable{
     }
 
     public Set<User> getLikes() {
+        if (likes == null) {
+            likes = new HashSet<>();
+        }
         return likes;
     }
 
     public Set<User> getMentions() {
+        if (mentions == null) {
+            mentions = new HashSet<>();
+        }
         return mentions;
     }
 
