@@ -18,7 +18,7 @@
                 <nav>
                     <ul class="nav nav-pills pull-right">
                         <li role="presentation" class="active">
-                            <h:commandLink action="#{userBean.logout()}" class="subAnchor" value="Logout"/>
+                            <h:commandLink action="#{authBean.logout()}" class="subAnchor" value="Logout"/>
                         </li>
                         <li role="presentation"><a href="${pageContext.request.contextPath}/Kwetter/#{userBean.user.userName}">Profile Page</a></li>
                     </ul>

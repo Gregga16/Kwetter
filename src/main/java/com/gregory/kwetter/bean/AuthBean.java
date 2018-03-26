@@ -66,11 +66,14 @@ public class AuthBean {
             user = userService.findByName(username);
             session.setAttribute("userID", user.getUserName());
 
-            if(username.equals("Admin")) {
+            if(request.isUserInRole("Admin")) {
                 externalContext.redirect(externalContext.getRequestContextPath() + "/admin/admin.xhtml");
             }
 
-            externalContext.redirect(externalContext.getRequestContextPath() + "/user/userPage.xhtml");
+            if(request.isUserInRole("Kweeter")) {
+                externalContext.redirect(externalContext.getRequestContextPath() + "/user/userPage.xhtml");
+            }
+
         } catch (ServletException e) {
             e.printStackTrace();
 
@@ -84,9 +87,14 @@ public class AuthBean {
     }
 
     public void logout() throws IOException {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.invalidateSession();
-        externalContext.redirect(externalContext.getRequestContextPath() + "/index.xhtml");
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.invalidateSession();
+            externalContext.redirect(externalContext.getRequestContextPath() + "/index.xhtml");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error Signout -" + ex.getMessage());
+        }
     }
 
     public User getUser() {

@@ -70,17 +70,6 @@ public class UserBean implements Serializable {
         return principal.getName();
     }
 
-    public void logout() {
-        try {
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            externalContext.invalidateSession();
-            externalContext.redirect(externalContext.getRequestContextPath() + "/index.xhtml");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Error Signout -" + ex.getMessage());
-        }
-    }
-
     public User getUser() {
         return user;
     }

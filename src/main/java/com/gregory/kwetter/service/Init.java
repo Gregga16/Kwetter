@@ -1,10 +1,10 @@
 package com.gregory.kwetter.service;
 
-import com.gregory.kwetter.dao.KweetDAO;
 import com.gregory.kwetter.dao.UserDAO;
 import com.gregory.kwetter.model.Kweet;
 import com.gregory.kwetter.model.Role;
 import com.gregory.kwetter.model.User;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -28,17 +28,19 @@ public class Init {
         Role admin = new Role("Admin");
         Role kweeter = new Role("Kweeter");
 
-        User user1 = new User("none", "Gregga", "Gregory", "Lammers", "Helmond", "www.test.com", "24 jaar oud", "gregory_lammers@hotmail.com", "test");
-        User user2 = new User("none", "Pietje", "pietje", "jansen", "Helmond", "www.test.com", "22 jaar oud", "piet@hotmail.com", "test");
-        User user3 = new User("none", "Henkie", "henkie", "fristen", "Helmond", "www.test.com", "21 jaar oud", "henk@hotmail.com", "test");
-        User user4 = new User("none", "Admin", "Admin", "Admin", "Helmond", "www.test.com", "21 jaar oud", "admin@hotmail.com", "test");
+        String password = DigestUtils.sha256Hex("test");
+
+        User user1 = new User("none", "Gregga", "Gregory", "Lammers", "Helmond", "www.test.com", "24 jaar oud", "gregory_lammers@hotmail.com", password);
+        User user2 = new User("none", "Pietje", "pietje", "jansen", "Helmond", "www.test.com", "22 jaar oud", "piet@hotmail.com", password);
+        User user3 = new User("none", "Henkie", "henkie", "fristen", "Helmond", "www.test.com", "21 jaar oud", "henk@hotmail.com", password);
+        User user4 = new User("none", "Admin", "Admin", "Admin", "Helmond", "www.test.com", "21 jaar oud", "admin@hotmail.com", password);
 //        User user4 = new User("hein_vermeulen@hotmail.com", "geen");
 //        User user5 = new User("pieter_vd_kimmenade@hotmail.com", "wachtwoord");
 
         entityManager.persist(admin);
         entityManager.persist(kweeter);
 
-        user1.addRole(admin);
+        user1.addRole(kweeter);
         user2.addRole(kweeter);
         user3.addRole(kweeter);
         user4.addRole(admin);

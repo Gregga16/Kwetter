@@ -37,9 +37,8 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Kweet> kweets = new HashSet<>();
 
-//    @JsonbTransient
     @ManyToMany
-    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleID"))
+    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "userName", referencedColumnName = "userName"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleID"))
     private Set<Role> roles = new HashSet<>();
 
     @JsonbTransient
@@ -111,12 +110,12 @@ public class User implements Serializable{
         return Collections.unmodifiableSet(kweets);
     }
 
-    public Set<Role> getRoles() {
-        if (roles == null) {
-            roles = new HashSet<>();
-        }
-        return roles;
-    }
+//    public Set<Role> getRoles() {
+//        if (roles == null) {
+//            roles = new HashSet<>();
+//        }
+//        return roles;
+//    }
 
     public Set<User> getFollowing() {
         if (following == null) {
@@ -184,11 +183,15 @@ public class User implements Serializable{
         this.followers = followers;
     }
 
-    @Interceptors(KweetLoggedInterceptor.class)
-    public Kweet addKweet(Kweet kweet) {
-//        Kweet kweet = new Kweet(message, this);
-        this.kweets.add(kweet);
+    public Kweet addKweet(String message, User user) {
+        Kweet kweet = new Kweet(message, user);
+        addKweet(kweet);
         return kweet;
+    }
+
+    @Interceptors(KweetLoggedInterceptor.class)
+    public void addKweet(Kweet kweet) {
+        this.kweets.add(kweet);
     }
 
     public boolean follow(User user) {
@@ -216,4 +219,11 @@ public class User implements Serializable{
 
     private boolean removeFollower(User user) { return followers.remove(user); }
 
+//    public List<Group> getGroups() {
+//        return groups;
+//    }
+//
+//    public void setGroups(List<Group> groups) {
+//        this.groups = groups;
+//    }
 }

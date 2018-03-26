@@ -37,6 +37,7 @@
     <orderEntry type="library" name="Gradle: org.webjars:bootstrap:3.3.6" level="project" />
     <orderEntry type="library" name="Gradle: org.webjars:font-awesome:4.5.0" level="project" />
     <orderEntry type="library" name="Gradle: org.webjars:jquery:3.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.10" level="project" />
     <orderEntry type="library" name="Gradle: javax.el:javax.el-api:3.0.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.interceptor:javax.interceptor-api:1.2" level="project" />
     <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
