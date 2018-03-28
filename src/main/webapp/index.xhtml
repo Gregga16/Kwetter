@@ -7,6 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{localeBean.locale}"/>
 <h:head>
     <title>Kwetter, A Twitter clone made by Gregory Lammers</title>
 
@@ -21,24 +22,52 @@
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills pull-right">
-                    <li role="presentation"><a href="">Home</a></li>
+                    <li role="presentation"><a class="nav-register" href="">#{msg['register']}</a></li>
                     <li role="presentation" class="active">
-                        <a onclick="PF('dlg').show();" role="button">Login</a>
+                        <a onclick="PF('dlg').show();" role="button">#{msg['loginNav']}</a>
                     </li>
                 </ul>
             </nav>
+            <h:form>
+                <li class="dropdown language-selector" >
+                    Language: &nbsp;
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                        <h:graphicImage name="flag-uk.png" library="images" width="16" height="16"/>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li>
+                            <a href="#" >
+                                <h:commandLink
+                                        action="#{localeBean.setLanguage('nl')}">
+                                    <h:graphicImage name="flag-nl.png" library="images" width="16" height="16"/>
+                                    #{msg['dutch']}
+                                </h:commandLink>
 
+                            </a>
+                        </li>
+                        <li >
+                            <a href="#">
+                                <h:commandLink
+                                        action="#{localeBean.setLanguage('')}">
+                                    <h:graphicImage name="flag-uk.png" library="images" width="16" height="16"/>
+                                    #{msg['english']}
+                                </h:commandLink>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </h:form>
             <h3 class="text-muted">Kwetter</h3>
         </div>
 
-        <p:dialog header="Please Login" widgetVar="dlg" resizable="false" minHeight="60">
+        <p:dialog header="#{msg['login']}" widgetVar="dlg" resizable="false" minHeight="60">
             <h:form name="formLogin" id="formLogin" prependId="false" accept-charset="UTF-8">
                 <h:panelGrid columns="2">
-                    <h:outputLabel style="margin-bottom: 10px" for="j_username" value="Username: "/>
+                    <h:outputLabel style="margin-bottom: 10px" for="j_username" value="#{msg['username']}"/>
                     <h:inputText style="margin-bottom: 10px; margin-left: 5px" id="j_username"
                                  value="#{authBean.username}" required="true"/>
 
-                    <h:outputLabel style="margin-bottom: 10px" for="j_password" value="Password: "/>
+                    <h:outputLabel style="margin-bottom: 10px" for="j_password" value="#{msg['password']}"/>
                     <h:inputSecret style="margin-bottom: 10px; margin-left: 5px" id="j_password"
                                    value="#{authBean.password}" required="true"/>
                 </h:panelGrid>
@@ -49,8 +78,8 @@
 
 
         <div class="jumbotron">
-            <h1>Welcome to Kwetter!</h1>
-            <p class="lead">Connect with your friend.</p>
+            <h1>#{msg['welcome']}</h1>
+            <p class="lead">#{msg['welcomeText']}</p>
             <!--<p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>-->
         </div>
         <footer class="footer">

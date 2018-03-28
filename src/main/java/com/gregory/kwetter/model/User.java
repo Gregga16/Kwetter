@@ -110,12 +110,12 @@ public class User implements Serializable{
         return Collections.unmodifiableSet(kweets);
     }
 
-//    public Set<Role> getRoles() {
-//        if (roles == null) {
-//            roles = new HashSet<>();
-//        }
-//        return roles;
-//    }
+    public Set<Role> getRoles() {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        return roles;
+    }
 
     public Set<User> getFollowing() {
         if (following == null) {
@@ -194,6 +194,29 @@ public class User implements Serializable{
         this.kweets.add(kweet);
     }
 
+    public void removeKweet(Kweet kweet) {
+        Iterator<Kweet> iter = kweets.iterator();
+        while (iter.hasNext()) {
+            Kweet kwt = iter.next();
+            if (kwt.getUser().equals(kweet.getUser())) {
+                if (kwt.getMessage().equals(kweet.getMessage())) {
+                    iter.remove();
+                }
+            }
+        }
+    }
+
+    public Kweet findKweet(Long id) {
+        Iterator<Kweet> iter = kweets.iterator();
+        while (iter.hasNext()) {
+            Kweet kwt = iter.next();
+            if (kwt.getId().equals(id)) {
+                return kwt;
+            }
+        }
+        return null;
+    }
+
     public boolean follow(User user) {
         if (user == null || user == this) {
             return false;
@@ -218,12 +241,4 @@ public class User implements Serializable{
     }
 
     private boolean removeFollower(User user) { return followers.remove(user); }
-
-//    public List<Group> getGroups() {
-//        return groups;
-//    }
-//
-//    public void setGroups(List<Group> groups) {
-//        this.groups = groups;
-//    }
 }

@@ -52,12 +52,19 @@ public class KweetDAO {
     }
 
     public List<Kweet> findKweetOnText(String text) {
-        Query q = entityManager.createNamedQuery("Kweet.findKweetsOnText");
-        q.setParameter("searchText", "%" + text + "%" );
+        String message = "'%" + text + "%'";
+        String sql = "SELECT kweet.* from Kweet kweet WHERE lower(kweet.`MESSAGE`) LIKE " + message + "";
+
+        Query q = entityManager.createNativeQuery(sql, Kweet.class);
         try {
             return q.getResultList();
         } catch (NoResultException ex) {
             return null;
         }
+    }
+
+    public void removeKweet(Kweet kweet) {
+        Kweet removekweet = entityManager.find(Kweet.class, kweet.getId());
+        entityManager.remove(removekweet);
     }
 }

@@ -12,7 +12,7 @@ import java.util.Set;
         @NamedQuery(name = "Kweet.findAllKweets", query = "SELECT kweet FROM Kweet kweet"),
         @NamedQuery(name = "Kweet.findById", query = "SELECT kweet FROM Kweet kweet WHERE kweet.id = :id"),
         @NamedQuery(name = "Kweet.findKweetsOnText",
-                query = "select kweet from Kweet kweet WHERE lower(kweet.message) like :searchText")
+                query = "SELECT kweet from Kweet kweet WHERE lower(kweet.message) LIKE :searchText")
 })
 public class Kweet implements Serializable{
 
@@ -24,7 +24,7 @@ public class Kweet implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date eventDate;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "User_id")
     private User user;
     

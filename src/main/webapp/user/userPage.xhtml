@@ -8,6 +8,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
+<f:view locale="#{localeBean.locale}"/>
 <h:head>
     <title>User Page</title>
 </h:head>
@@ -28,10 +29,17 @@
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-primary dropdown-toggle button-dropdown"
                             data-toggle="dropdown">
-                        language <span class="caret"/>
+                        #{msg['language']} <span class="caret"/>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-
+                        <li>
+                            <h:commandLink
+                                    action="#{localeBean.setLanguage('')}">#{msg['english']} </h:commandLink>
+                        </li>
+                        <li>
+                            <h:commandLink
+                                    action="#{localeBean.setLanguage('nl')}">#{msg['dutch']} </h:commandLink>
+                        </li>
                     </ul>
                 </div>
             </h:form>
@@ -40,7 +48,7 @@
                 <h:form>
                     <i class="fa fa-search"/>
                     <h:inputText id="searchKweet" type="text" class="form-control"
-                                 a:placeholder="searchKweet"
+                                 a:placeholder="#{msg['searchKweet']}"
                                  onkeypress="if (event.keyCode == 13) {event.target.blur();event.stopPropagation();return false;} else {return true;};">
                         <f:ajax execute="searchKweet" listener="#{userBean.searchKweet}"
                                 prependId="true" render="tv">

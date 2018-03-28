@@ -70,5 +70,12 @@ public class KweetResource {
         return kweetService.findKweetOnText(text);
     }
 
-
+    @GET
+    @Path("remove/{kweetid}")
+    @RolesAllowed("Admin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void removeKweet(@PathParam("kweetid") Long id) {
+        Kweet kweet = kweetService.findKweetById(id);
+        kweetService.removeKweet(kweet);
+    }
 }

@@ -32,6 +32,8 @@ public class KweetService {
         return kweetDAO.addKweet(kweet.getMessage(), kweet.getUser());
     }
 
+    public Kweet findKweetById(Long id) { return kweetDAO.findById(id); }
+
     public List<Kweet> findAllKweets() {
         return kweetDAO.findAllKweets();
     }
@@ -62,4 +64,7 @@ public class KweetService {
     public List<Kweet> findKweetOnText(String text) {
         return kweetDAO.findKweetOnText(text);
     }
+
+
+    public void removeKweet(Kweet kweet) { kweetDAO.removeKweet(kweet);}
 }

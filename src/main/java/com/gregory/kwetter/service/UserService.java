@@ -50,4 +50,5 @@ public class UserService {
     }
 
     public List<Kweet> getTimeLine(Long id) { return userDAO.getTimeLine(id); }
+
 }
