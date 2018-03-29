@@ -4,6 +4,8 @@ import com.gregory.kwetter.dao.UserDAO;
 import com.gregory.kwetter.model.Kweet;
 import com.gregory.kwetter.model.User;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,6 +14,7 @@ import java.util.Set;
 
 @Stateless
 @Named
+@DeclareRoles({"Admin", "Kweeter"})
 public class UserService {
 
     @Inject
@@ -49,6 +52,7 @@ public class UserService {
         return userDAO.getFollowing(id);
     }
 
+    @RolesAllowed("Admin")
     public List<Kweet> getTimeLine(Long id) { return userDAO.getTimeLine(id); }
 
 }

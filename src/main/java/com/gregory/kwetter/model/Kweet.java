@@ -17,7 +17,7 @@ import java.util.Set;
 public class Kweet implements Serializable{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String message;

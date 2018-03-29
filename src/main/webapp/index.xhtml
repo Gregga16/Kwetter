@@ -32,13 +32,14 @@
                 <li class="dropdown language-selector" >
                     Language: &nbsp;
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
-                        <h:graphicImage name="flag-uk.png" library="images" width="16" height="16"/>
+                        <h:graphicImage name="#{authBean.image}" library="images" width="16" height="16"/>
                     </a>
                     <ul class="dropdown-menu pull-left">
                         <li>
                             <a href="#" >
                                 <h:commandLink
                                         action="#{localeBean.setLanguage('nl')}">
+                                    <f:actionListener binding="#{authBean.setImageName('dutch')}" />
                                     <h:graphicImage name="flag-nl.png" library="images" width="16" height="16"/>
                                     #{msg['dutch']}
                                 </h:commandLink>
@@ -49,6 +50,7 @@
                             <a href="#">
                                 <h:commandLink
                                         action="#{localeBean.setLanguage('')}">
+                                    <f:actionListener binding="#{authBean.setImageName('english')}" />
                                     <h:graphicImage name="flag-uk.png" library="images" width="16" height="16"/>
                                     #{msg['english']}
                                 </h:commandLink>

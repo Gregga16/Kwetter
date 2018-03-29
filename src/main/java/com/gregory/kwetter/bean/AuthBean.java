@@ -15,6 +15,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,7 @@ public class AuthBean {
     private String username;
     private String password;
     private String originalURL;
+    private String image = "flag-nl.png";;
 
     @Inject
     HttpServletRequest request;
@@ -38,6 +40,7 @@ public class AuthBean {
 
     @PostConstruct
     public void init() {
+//        image = "flag-nl.png";
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         originalURL = (String) externalContext.getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
 
@@ -119,5 +122,25 @@ public class AuthBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public ActionListener setImageName(String name) {
+        switch (name) {
+            case "dutch":
+                setImage("flag-nl.png");
+                break;
+            case "english":
+                setImage("flag-uk.png");
+                break;
+        }
+        return null;
     }
 }
