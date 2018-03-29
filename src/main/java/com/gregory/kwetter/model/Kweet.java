@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Kweet.findAllKweets", query = "SELECT kweet FROM Kweet kweet"),
+        @NamedQuery(name = "Kweet.findAllKweets", query = "SELECT kweet FROM Kweet kweet ORDER BY kweet.eventDate DESC"),
         @NamedQuery(name = "Kweet.findById", query = "SELECT kweet FROM Kweet kweet WHERE kweet.id = :id"),
         @NamedQuery(name = "Kweet.findKweetsOnText",
                 query = "SELECT kweet from Kweet kweet WHERE lower(kweet.message) LIKE :searchText")

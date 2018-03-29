@@ -12,8 +12,77 @@
 </h:head>
 <h:body>
     <h1>Welcome to the Admin Page.</h1>
-    <h:form>
-        <p:commandButton value="Logout" action="#{authBean.logout}"/>
-    </h:form>
+    <div class="container">
+        <div class="header clearfix">
+            <h:form>
+                <nav>
+                    <ul class="nav nav-pills pull-right">
+                        <li role="presentation" class="active">
+                            <h:commandLink action="#{authBean.logout()}" class="subAnchor" value="Logout"/>
+                        </li>
+                    </ul>
+                </nav>
+            </h:form>
+            <h:form>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-primary dropdown-toggle button-dropdown"
+                            data-toggle="dropdown">
+                        #{msg['language']} <span class="caret"/>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <h:commandLink
+                                    action="#{localeBean.setLanguage('')}">#{msg['english']} </h:commandLink>
+                        </li>
+                        <li>
+                            <h:commandLink
+                                    action="#{localeBean.setLanguage('nl')}">#{msg['dutch']} </h:commandLink>
+                        </li>
+                    </ul>
+                </div>
+            </h:form>
+        </div>
+        <div class="jumbotron">
+            <h1>Welcome to Admin page</h1>
+            <h:form>
+                <p:dataTable id="usersTable" var="user" value="#{adminBean.users}"
+                             selection="#{adminBean.selectedUser}" selectionMode="single" rowKey="#{user.id}">
+                    <p:column headerText="User ID">
+                        <h:outputText value="#{user.id}"/>
+                    </p:column>
+                    <p:column headerText="Username">
+                        <h:outputText value="#{user.userName}"/>
+                    </p:column>
+                    <p:column headerText="Role">
+                        <h:outputText value="#{user.usersGroupsToString}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:selectOneMenu id="userGroups" value="#{adminBean.selectedRole}" style="width:150px">
+                            <f:selectItem itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{adminBean.roles}" />
+                        </p:selectOneMenu>
+                        <p:commandButton id="selectUsedBtn" value="Promote" action="#{adminBean.promoteUser()}" update="usersTable"/>
+                        <p:commandButton id="demoteUsedBtn" value="Demote" action="#{adminBean.demoteUser()}" update="usersTable"/>
+                    </f:facet>
+                </p:dataTable>
+                <p:dataTable id="kweetsTable" var="Kweet" value="#{adminBean.kweets}"
+                             selection="#{adminBean.selectedKweet}" selectionMode="single" rowKey="#{Kweet.id}">
+                    <p:column headerText="Kweet ID">
+                        <h:outputText value="#{Kweet.id}"/>
+                    </p:column>
+                    <p:column headerText="Kweet Content">
+                        <h:outputText value="#{Kweet.message}"/>
+                    </p:column>
+                    <p:column headerText="Kweeted by">
+                        <h:outputText value="#{Kweet.user.userName}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="deleteKweet" value="Delete" action="#{adminBean.removeKweet()}"
+                                         update="kweetsTable"/>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </div>
 </h:body>
 </html>

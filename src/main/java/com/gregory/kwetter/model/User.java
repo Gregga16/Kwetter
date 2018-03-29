@@ -236,6 +236,25 @@ public class User implements Serializable{
         this.roles.add(role);
     }
 
+    public void removeRole(Role role){
+        if(this.roles.contains(role)){
+            this.roles.remove(role);
+        }
+    }
+
+    public String getUsersGroupsToString(){
+        if(this.roles.size() > 0){
+            StringBuilder sb = new StringBuilder();
+            for(Role gg : this.getRoles()){
+                sb.append(gg.getRoleID());
+                sb.append(" - ");
+            }
+            return sb.toString();
+        }else{
+            return "None";
+        }
+    }
+
     private void addFollower(User follower) {
         this.followers.add(follower);
     }

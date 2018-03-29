@@ -15,7 +15,7 @@ import java.util.Set;
 @Stateless
 public class KweetDAO {
 
-    @PersistenceContext(unitName = "Kwetter")
+    @PersistenceContext
     private EntityManager entityManager;
 
 
@@ -32,7 +32,8 @@ public class KweetDAO {
 
     public List<Kweet> findAllKweets() {
         Query q = entityManager.createNamedQuery("Kweet.findAllKweets");
-        return q.getResultList();
+        List<Kweet> kweet = q.getResultList();
+        return kweet;
     }
 
     public Kweet findById(Long id) {

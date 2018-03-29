@@ -3,8 +3,10 @@
 
     <persistence-unit name="Kwetter" transaction-type="JTA">
         <jta-data-source>kwetter</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
         </properties>
     </persistence-unit>
 </persistence>

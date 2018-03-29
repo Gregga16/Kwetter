@@ -1,6 +1,7 @@
 package com.gregory.kwetter.dao;
 
 import com.gregory.kwetter.model.Kweet;
+import com.gregory.kwetter.model.Role;
 import com.gregory.kwetter.model.User;
 
 import javax.ejb.Stateless;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Stateless
 public class UserDAO {
 
-    @PersistenceContext(unitName = "Kwetter")
+    @PersistenceContext
     private EntityManager entityManager;
 
     public void setEntityManager(EntityManager em) {
@@ -26,6 +27,8 @@ public class UserDAO {
     }
 
     public void editUser(User user) { entityManager.merge(user); }
+
+    public void editRole(Role role) { entityManager.merge(role); }
 
     public List<User> findAllUsers() {
         Query q = entityManager.createNamedQuery("User.findAllUsers");
@@ -79,6 +82,17 @@ public class UserDAO {
         List<Kweet> kweet = q.getResultList();
         System.out.println(kweet.size());
         return kweet;
+    }
+
+    public Role getRole(String roleID) {
+        Query q = entityManager.createNamedQuery("RoleGroup.getByRoleID");
+        q.setParameter("roleID", roleID);
+        return (Role) q.getSingleResult();
+    }
+
+    public List<Role> getAllRoleGroups() {
+        List<Role> gebruikerGroups = entityManager.createNamedQuery("RoleGroup.getAll").getResultList();
+        return gebruikerGroups;
     }
 
 
